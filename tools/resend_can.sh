@@ -2,6 +2,8 @@
 # Script to send raw can frames from the output of candump (from BBB)
 # First argument is can device, the rest are input files
 
+# simulates CAN Message from combine_can2_2
+
 # Remove can device from argument list
 can_dev=$1
 shift

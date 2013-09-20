@@ -40,18 +40,26 @@
  
 #include "../socketcan-isobus/patched/can.h"
 #include "../socketcan-isobus/isobus.h"
- 
+
 void print_message(char interface[], struct timeval *ts, 
 		struct isobus_mesg *mes) {
 	int i;
+	FILE *myfile = fopen("sample_dump.txt","a+");  
 
 	/* Output CAN message */
 	printf("%06d ", mes->pgn);
+	fprintf(myfile,"%06d ", mes->pgn);
+
 	for(i = 0; i < mes->dlen; i++) {
 		printf(" %02x", mes->data[i]);
+		fprintf(myfile," %02x", mes->data[i]);
 	}
 	/* Output timestamp and CAN interface */
 	printf("\t%ld.%06ld\t%s\n", ts->tv_sec, ts->tv_usec, interface);
+
+	fprintf(myfile,"\t%ld.%06ld\t%s\n", ts->tv_sec, ts->tv_usec, interface);
+  	//For demo purpose: no fclose(myfile);
+	fclose(myfile);
 
 	/* Flush output after each message */
 	fflush(stdout);
@@ -88,6 +96,8 @@ void set_filters(int *s, int ns) {
 }
 
 int main(int argc, char *argv[]) {
+	printf("Init\n ");
+
 	int *s;
 	struct sockaddr_can addr;
 	socklen_t addr_len;
@@ -96,15 +106,17 @@ int main(int argc, char *argv[]) {
 	struct timeval ts;
 	int i;
 	fd_set read_fds;
-
+	printf("Alloc\n");
 	s = malloc((argc - 1) * sizeof(*s));
 	FD_ZERO(&read_fds);
 
-	/* FD_SET(0, &read_fds); */
+
+	 FD_SET(0, &read_fds); 
 
 	/* Initialize sockets */
 	for(i = 0; i < argc - 1; i++) {
-		if((s[i] = socket(PF_CAN, SOCK_DGRAM, CAN_ISOBUS)) < 0) {
+		if((s[i] = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0) {  //PF_CAN, SOCK_DGRAM, CAN_ISOBUS
+			
 			perror("socket");
 			return EXIT_FAILURE;
 		}
