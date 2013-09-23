@@ -2,7 +2,7 @@
 #
 
 if (( $# < 1 ))
-	then echo "Usage: query.sh <timeoffset>"
+	then echo "[Usage: query.sh <timeoffset>"
 	exit
 fi
 
