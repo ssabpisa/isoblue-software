@@ -42,8 +42,16 @@
  
 #include "../socketcan-isobus/patched/can.h"
 #include "../socketcan-isobus/isobus.h"
- 
+//#include "settings_mgr.h"
+
 int main(int argc, char *argv[]) {
+	
+
+	if(argc < 3){
+	  printf("Usage: ./filter vcanN vcanN [-f] [-y] [-k]\n");
+	  return EXIT_FAILURE;
+	}
+
 	int s;
 	int nbytes;
 	struct sockaddr_can addr;
@@ -95,7 +103,8 @@ int main(int argc, char *argv[]) {
 	}
 	/* Apply filter(s) to socket */
 	
-	if(argc >= 4  && !strcmp(argv[3],"-f")){
+	//parsing argument with loop
+	if(argc >= 4 && !strcmp(argv[3],"-f")){
 		if(setsockopt(s, SOL_CAN_ISOBUS, CAN_ISOBUS_FILTER, filts,
 				nfilts * sizeof(*filts)) < 0) {
 			perror("setsockopt");
@@ -128,11 +137,11 @@ int main(int argc, char *argv[]) {
 		nbytes = recvmsg(s, &msg, 0);
 		if(nbytes == -1)
 		{
-			perror("recvmesg");
-			return -1;
+		   perror("recvmesg");
+		   return -1;
 		}
-
-		printf("PGN:%6d data:", mesg.pgn);
+                
+	 	printf("PGN:%6d data:", mesg.pgn);
 		for(i = 0; i < mesg.dlen; i++)
 			printf("%02x", mesg.data[i]);
 		printf("\n");

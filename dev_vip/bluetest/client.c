@@ -26,9 +26,9 @@ int main(int argc, char **argv)
 
     // send a message
     if( status == 0 ) {
-       char chex[1];
-       sprintf(chex,"%x",CMD_SAYHI); 
-       status = write(s, chex, 6);
+      // char chex[1];
+      // sprintf(chex,"%x",CMD_SAYHI);  
+      status = write(s, argv[2], strlen(argv[2]));
     }
 
     if( status < 0 ) perror(dest);

@@ -33,7 +33,8 @@ int main(int argc, char **argv)
     memset(buf, 0, sizeof(buf));
 
     // read data from the client
-//    while(1){ 
+    // recv, send
+    //    while(1){ 
          //keep printing the data   
 	 bytes_read = read(client, buf, sizeof(buf));
     	if( bytes_read > 0 ) {
