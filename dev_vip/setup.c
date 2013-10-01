@@ -48,11 +48,9 @@ void command_listen(Settings * st){
    printf("connected to %s\n", buf);
    //clear buffer
    memset(buf, 0, sizeof(buf));
-   printf("waiting for message\n");
-   printf(" - send 'halt' to stop ");
  
    //keep reading until halt is encountered
-   while(!strcmp(buf,"halt")){
+   while(strcmp(buf,"halt")){
       bytes_read = read(client, buf, sizeof(buf));
       if(bytes_read > 0){
          printf("received: %s\n", buf);
