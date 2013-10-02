@@ -27,7 +27,7 @@ dispatchProcess: manages spawning of filter based on filterskey
 		 but it will use the first process to send data to both device1 and device2.
 */
 
-void command_listen(Settings * st){
+Settings * command_listen(Settings * st){
    struct sockaddr_rc localaddr = { 0 }; 
    struct sockaddr_rc remoteaddr = { 0 };
    char buf[2048] = { 0 };
@@ -51,37 +51,48 @@ void command_listen(Settings * st){
    printf("connected to %s\n", buf);
    //clear buffer
    memset(buf, 0, sizeof(buf));
- 
-   //keep reading until halt is encountered
-   //while(strcmp(buf,"halt") != 0){
+   
+
+   Settings * sob = calloc(sizeof(Settings),1);
+   int countcmd = 0;
    while(1){
       bytes_read = read(client, buf, sizeof(buf));
       if(bytes_read > 0){
          printf("received: %s\n", buf);
+	 countcmd += 1;
       }
       /* TRY:
          recv(s, buf, sizeof(buf), 0);
       */
+      if(!strcmp(buf,"finish")){
+        //if buffer is "finish"
+	printf("Okay, I shall spawn a filter for you!\n");
+	system("./filter vcan0");
+  	break;
+      }
       memset(buf,0,sizeof(buf)); 
    }
    
+
    close(client);
    close(s);
-   return;
+  
+   return (countcmd == 0 ? NULL : sob);
    
 }
 
 int main(int argc, const char *argv[]){
-   Settings * sob = calloc(sizeof(Settings),1); 
+   
    char * basename = malloc(sizeof(char)*(20+strlen(argv[1])));
    strcpy(basename,argv[1]);
    strcat(basename,"_setting.config");
-
-   FILE * fout = fopen(basename,"wb"); 
-   
+   FILE * fout = fopen(basename, "wb"); 
    printf("Ready.\n");
-   command_listen(sob);
-   
+   Settings * sob = command_listen(sob);
+   if(sob == NULL){
+       printf("Unable to create filter.");
+       return EXIT_FAILURE;
+   } 
    fwrite(sob, sizeof(Settings), 10,fout); 
    return EXIT_SUCCESS;
 }
