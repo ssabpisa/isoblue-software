@@ -2,7 +2,7 @@
 * ISOBlue Setup Daemon
 * Description: runs in background and waits for command sent via bluetooth by the BBB.
 * 
-* Author : Pat S. <ssabpisa@purdue.edu>
+* Author : Pat SSabpisal  <ssabpisa@purdue.edu>
 *        : 
 *        :
 */
@@ -45,7 +45,10 @@ Settings * command_listen(Settings * st){
    listen(s, 1); //backlog = 1, maximum length to which the queue of pending connection may grow
    //begin accepting connections
    printf("Waiting for client..\n");
-   client = accept(s, (struct sockaddr *)&remoteaddr, &opt); 
+   while(1){
+   	client = accept(s, (struct sockaddr *)&remoteaddr, &opt); 
+        if(client > 0) break;
+   }
    //convert address structure to string
    ba2str(&remoteaddr.rc_bdaddr, buf);
    printf("connected to %s\n", buf);
@@ -58,17 +61,25 @@ Settings * command_listen(Settings * st){
    while(1){
       bytes_read = read(client, buf, sizeof(buf));
       if(bytes_read > 0){
-         printf("received: %s\n", buf);
+         printf(">> %s\n", buf);
 	 countcmd += 1;
       }
       /* TRY:
          recv(s, buf, sizeof(buf), 0);
       */
+      
       if(!strcmp(buf,SIGNAL_FINISH)){
         //if buffer is "finish"
-	printf("Okay, I shall spawn a filter for you!\n");
+	printf("FINISH SIGNAL received!!\n");
+	printf("Spawning Filter..\n");
 	system("./filter vcan0");
+	//TODO: replace system with dispatch process
+        printf("\nReturning to Wait State..\n");
   	break;
+      }
+     
+      if (!strcmp(buf,SIGNAL_SETFILTER)){
+	printf("Recognized Request to set filter\n");
       }
       memset(buf,0,sizeof(buf)); 
    }
