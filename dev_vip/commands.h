@@ -1,4 +1,4 @@
 #define SIGNAL_FINISH "isoend"
 
 void scan(char * addr);
-void command_listen(Settings * st);
+Settings * command_listen(Settings * st);

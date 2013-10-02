@@ -64,7 +64,7 @@ Settings * command_listen(Settings * st){
       /* TRY:
          recv(s, buf, sizeof(buf), 0);
       */
-      if(!strcmp(buf,"finish")){
+      if(!strcmp(buf,SIGNAL_FINISH)){
         //if buffer is "finish"
 	printf("Okay, I shall spawn a filter for you!\n");
 	system("./filter vcan0");
