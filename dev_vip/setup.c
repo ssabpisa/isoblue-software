@@ -84,7 +84,6 @@ Settings * command_listen(Settings * st){
 
 	//TODO: replace system with dispatch process
 
-        printf("\nReturning to Wait State..\n");
   	break;
       }
      
@@ -127,5 +126,6 @@ int main(int argc, const char *argv[]){
        return EXIT_FAILURE;
    } 
    fwrite(sob, sizeof(Settings), 10,fout); 
+   printf("\nOperation successful. Written to file %s\n",basename);
    return EXIT_SUCCESS;
 }

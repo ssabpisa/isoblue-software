@@ -42,7 +42,7 @@
  
 #include "../socketcan-isobus/patched/can.h"
 #include "../socketcan-isobus/isobus.h"
-//#include "settings_mgr.h"
+//#include "settings_mgr.h
 
 int main(int argc, char *argv[]) {
 	
@@ -51,7 +51,12 @@ int main(int argc, char *argv[]) {
 	  printf("Usage: ./filter vcanN vcanN [-f] [-y] [-k]\n");
 	  return EXIT_FAILURE;
 	}
-
+	/*WARNING SUPER ULTRA SLOPPY CODE - FOR DEMO PURPOSE ONLY*/
+	FILE * fp = fopen("isoblue_setting.config","rb");
+	char k[20] = {0};	
+	int  block[20] = {0};
+//	fread(k,sizeof(char),20,fp);	
+//	fread(block,sizeof(int),20,fp);
 	int s;
 	int nbytes;
 	struct sockaddr_can addr;
@@ -88,9 +93,10 @@ int main(int argc, char *argv[]) {
 	pgn_t pgns[] = {0, 1};
 	int nfilts = sizeof(pgns) / sizeof(pgn_t);
 	filts = calloc(nfilts, sizeof(*filts));
+
 	for(i = 0; i < nfilts; i++) {
 		/* Filter based on PGN */
-		filts[i].pgn = 0;
+		filts[i].pgn = 0; //the list of blocking PGNs from setting file
 		filts[i].pgn_mask = CAN_ISOBUS_PGN_MASK;
 		/* Don't filter based on DA */
 		filts[i].daddr = 0;
@@ -101,6 +107,7 @@ int main(int argc, char *argv[]) {
 		/* Receive message that match (1 to reject matches) */
 		filts[i].inverted = 0;
 	}
+ 	
 	/* Apply filter(s) to socket */
 	
 	//parsing argument with loop
