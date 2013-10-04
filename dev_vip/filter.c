@@ -54,13 +54,12 @@ int main(int argc, char *argv[]) {
 
 	/*WARNING SUPER ULTRA SLOPPY CODE - FOR DEMO PURPOSE ONLY*/
 	FILE * fp = fopen("isoblue_setting.config","rb");
-	int kfp[20] = {0};
+	int kfp[10] = {0};
 	fseek(fp, sizeof(char)*20, SEEK_CUR);
 	fread(kfp,sizeof(int),5,fp);	
 	//fread(block,sizeof(int),20,fp);
+	//printf("%d %d %d %d",kfp[0],kfp[1],kfp[2],kfp[3]);
 
-	printf("%d %d %d %d",kfp[0],kfp[1],kfp[2],kfp[3]);
-	return 0;
 	int s;
 	int nbytes;
 	struct sockaddr_can addr;
@@ -94,7 +93,7 @@ int main(int argc, char *argv[]) {
 
 	/* Set up filter(s) */
 	struct isobus_filter *filts;
-	pgn_t pgns[] = {0, 1};
+	pgn_t pgns[] = {0, 1, 2,3,5};
 	int nfilts = sizeof(pgns) / sizeof(pgn_t);
 	filts = calloc(nfilts, sizeof(*filts));
 
@@ -111,7 +110,13 @@ int main(int argc, char *argv[]) {
 		/* Receive message that match (1 to reject matches) */
 		filts[i].inverted = 0;
 	}
- 	
+	/*DISCLAIMER: due to time constraint, sloppy code is inevitable*/
+	filts[0].pgn = kfp[0];
+	filts[1].pgn = kfp[1]; 	
+	filts[2].pgn = kfp[2];
+	filts[3].pgn = kfp[3];
+	filts[4].pgn = kfp[4];
+
 	/* Apply filter(s) to socket */
 	
 	//parsing argument with loop
