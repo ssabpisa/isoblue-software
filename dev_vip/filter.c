@@ -51,12 +51,16 @@ int main(int argc, char *argv[]) {
 	  printf("Usage: ./filter vcanN vcanN [-f] [-y] [-k]\n");
 	  return EXIT_FAILURE;
 	}
+
 	/*WARNING SUPER ULTRA SLOPPY CODE - FOR DEMO PURPOSE ONLY*/
 	FILE * fp = fopen("isoblue_setting.config","rb");
-	char k[20] = {0};	
-	int  block[20] = {0};
-//	fread(k,sizeof(char),20,fp);	
-//	fread(block,sizeof(int),20,fp);
+	int kfp[20] = {0};
+	fseek(fp, sizeof(char)*20, SEEK_CUR);
+	fread(kfp,sizeof(int),5,fp);	
+	//fread(block,sizeof(int),20,fp);
+
+	printf("%d %d %d %d",kfp[0],kfp[1],kfp[2],kfp[3]);
+	return 0;
 	int s;
 	int nbytes;
 	struct sockaddr_can addr;
@@ -80,8 +84,8 @@ int main(int argc, char *argv[]) {
 
 	addr.can_family  = AF_CAN;
 	addr.can_ifindex = ifr.ifr_ifindex; 
-	sscanf(argv[2], "%2x", &tmp);
-	addr.can_addr.isobus.addr = tmp;
+	//sscanf(argv[2], "%2x", &tmp);
+	//addr.can_addr.isobus.addr = tmp;
 
 	if(bind(s, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
 		perror("Error in socket bind");

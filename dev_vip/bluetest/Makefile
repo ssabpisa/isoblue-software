@@ -10,4 +10,4 @@ mock_device.o: mock_device.c
 	$(GCC) mock_device.c -c -lbluetooth
 
 testsend: 
-	./mock_device 00:01:95:14:97:F8 hello junkmsg setfilter 33 99 11 endfilter	
+	./mock_device 00:01:95:14:97:F8 setfilter 65226 65399 61443 61444 endfilter	
