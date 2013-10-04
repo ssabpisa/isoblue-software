@@ -20,7 +20,7 @@ typedef struct _Settings{
    //Note Setting structure is 1 object per device
    int setup_timestamp;
    int max_concurrent_connection;
-   int device_ID; 
+   char device_ID[20]; 
    /*or other structure for device identification*/
    /* buffer filename is related to device ID */
    /* different devices will spawn new process of daemon anyway */

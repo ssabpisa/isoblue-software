@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	/*WARNING SUPER ULTRA SLOPPY CODE - FOR DEMO PURPOSE ONLY*/
-	FILE * fp = fopen("isoblue_setting.config","rb");
+	FILE * fp = fopen(argv[4],"rb");
 	int kfp[10] = {0};
 	fseek(fp, sizeof(char)*20, SEEK_CUR);
 	fread(kfp,sizeof(int),5,fp);	

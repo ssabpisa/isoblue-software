@@ -18,6 +18,7 @@
 #include <bluetooth/rfcomm.h>
 #include "commands.h"
 
+void writeConfig(FILE * a, Settings * b);
 void dispatchProcess(char * filterskey); 
 /* 
 dispatchProcess: manages spawning of filter based on filterskey
@@ -27,7 +28,7 @@ dispatchProcess: manages spawning of filter based on filterskey
 		 but it will use the first process to send data to both device1 and device2.
 */
 
-Settings * command_listen(Settings * st){
+Settings * command_listen(Settings * st, const char * sfname){
    struct sockaddr_rc localaddr = { 0 }; 
    struct sockaddr_rc remoteaddr = { 0 };
    char buf[2048] = { 0 };
@@ -53,16 +54,15 @@ Settings * command_listen(Settings * st){
    //convert address structure to string
    ba2str(&remoteaddr.rc_bdaddr, buf);
    printf("connected to %s\n", buf);
-   //clear buffer
-   memset(buf, 0, sizeof(buf));
    
-
    Settings * sob = calloc(sizeof(Settings),1);
+   strcpy(sob->device_ID, buf);
+
    int countcmd = 0; //count how many command has been issued from client
    int countpgn = 0; //count how many pgn has been set (temp)
    int MODE_SETFILTER = 0; //flag to check what type of data is the client sending
    sob->PGN_sets = malloc(sizeof(int)*20); /*max 20 pgns , for now*/
-
+   memset(buf, 0, sizeof(buf));
    while(1){ //keep receiving until stop is encountered
       bytes_read = read(client, buf, sizeof(buf));
       if(bytes_read > 0){
@@ -77,8 +77,12 @@ Settings * command_listen(Settings * st){
         //if buffer is "finish"
 	printf("FINISH SIGNAL received!!\n");
 	printf("Spawning Filter..\n");
-	
-	system("./filter vcan0 vcan0");
+	char filterarg[1024] = "./filter vcan0 vcan0 -f ";
+	char basename[1024] = "";
+	strcpy(basename, sfname);
+	strcat(basename, "_setting.config");
+	strcat(filterarg, basename);
+	system(filterarg);
         //Note: above commands should pass in "setting file" 
 	// filter.c need to open up setting file (binary) and read the PGN_sets data
 
@@ -86,21 +90,20 @@ Settings * command_listen(Settings * st){
 
   	break;
       }
+
+      
      
       if (!strcmp(buf,SIGNAL_SETFILTER)){ //if command is to set filter (defined in commands.h)
  	printf("Recognized Request to set filter\n");
 	MODE_SETFILTER = 1;  //mark the flag 
-      }
-      
-      if(MODE_SETFILTER){ //if flagged
+      }else if(!strcmp(buf,SIGNAL_ENDLIST)){ 
+        MODE_SETFILTER = 0; //unflag the setfilter flag
+        printf("Filter saved\n");
+      }else if(MODE_SETFILTER){ //if flagged
         printf("Adding %s to filter (%d)\n", buf, countpgn);
 	sob->PGN_sets[countpgn++] = atoi(buf); //add to pgn sets
       }
 
-      if(!strcmp(buf,SIGNAL_ENDLIST)){ //if command is to finish adding to list
-	MODE_SETFILTER = 0; //unflag the register
-	printf("Filter saved\n"); 
-      }
 
       memset(buf,0,sizeof(buf)); //clear buffer so we can start reading again
    }
@@ -113,6 +116,18 @@ Settings * command_listen(Settings * st){
    
 }
 
+void writeConfig(FILE * fp, Settings * st){
+/*    int i = 0;
+    fprintf(fp, "MASTER:%s\n", st->device_ID);
+    fprintf(fp,"%s","ALLOW:");
+    for(i = 0; i < 20; i++){ 
+      fprintf(fp,"%d ",st->PGN_sets[i]);
+    }
+    fprintf(fp,"%s","\n");*/
+    fwrite(st->device_ID, sizeof(char),20,fp);
+    fwrite(st->PGN_sets,sizeof(int),20,fp);
+}
+
 int main(int argc, const char *argv[]){
    
    char * basename = malloc(sizeof(char)*(20+strlen(argv[1])));
@@ -120,12 +135,17 @@ int main(int argc, const char *argv[]){
    strcat(basename,"_setting.config");
    FILE * fout = fopen(basename, "wb"); 
    printf("Ready.\n");
-   Settings * sob = command_listen(sob);
+   Settings * sob = command_listen(sob,argv[1]);
    if(sob == NULL){
        printf("Unable to create filter.");
        return EXIT_FAILURE;
-   } 
-   fwrite(sob, sizeof(Settings), 10,fout); 
+   }
+    
+   //fwrite(sob, sizeof(Settings), 1,fout); 
+
+   writeConfig(fout, sob);
+
    printf("\nOperation successful. Written to file %s\n",basename);
+   free(sob);
    return EXIT_SUCCESS;
 }

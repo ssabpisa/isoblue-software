@@ -6,4 +6,4 @@
 #define SIGNAL_FILTER_ALLOW "allow"
 
 void scan(char * addr);
-Settings * command_listen(Settings * st);
+Settings * command_listen(Settings * st , const char * a);
