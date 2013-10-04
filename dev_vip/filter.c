@@ -112,10 +112,12 @@ int main(int argc, char *argv[]) {
 	}
 	/*DISCLAIMER: due to time constraint, sloppy code is inevitable*/
 	filts[0].pgn = kfp[0];
-	filts[1].pgn = kfp[1]; 	
-	filts[2].pgn = kfp[2];
-	filts[3].pgn = kfp[3];
-	filts[4].pgn = kfp[4];
+	filts[1].pgn = kfp[1];
+	filts[0].pgn_mask = CAN_ISOBUS_PGN_MASK;
+	filts[1].pgn_mask = CAN_ISOBUS_PGN_MASK; 	
+//	filts[2].pgn = kfp[2];
+//	filts[3].pgn = kfp[3];
+//	filts[4].pgn = kfp[4];
 
 	/* Apply filter(s) to socket */
 	
