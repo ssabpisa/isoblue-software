@@ -83,10 +83,6 @@ Settings * command_listen(Settings * st, const char * sfname){
 	strcat(basename, "_setting.config");
 	strcat(filterarg, basename);
 	system(filterarg);
-        //Note: above commands should pass in "setting file" 
-	// filter.c need to open up setting file (binary) and read the PGN_sets data
-
-	//TODO: replace system with dispatch process
 
   	break;
       }
