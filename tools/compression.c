@@ -1,0 +1,3 @@
+/*
+    Library for Huffman Compression
+*/
