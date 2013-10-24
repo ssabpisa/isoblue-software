@@ -71,6 +71,13 @@ bluDB * build_DB(){
   return newdb;
 }
 
+//*Second Function
+void search_record(void insert_record)
+{
+
+
+}
+
 void insert_record(record * r, bluDB * b){
   if(r == NULL){
     fprintf(stderr, "Record cannot be NULL!");
@@ -105,6 +112,18 @@ void insert_record(record * r, bluDB * b){
   return;
 }
 
+//*Joseph's Function-work in progress, delete function
+/*
+void delete_record(int record_id_to_delete)
+{
+ FILE * pFile;
+ char line[21]; //This is to double check about what 
+ char *buffer;
+ char *ptr;
+*/
+
+}
+
 int main(){
   bluDB * d = build_DB();
   
@@ -122,3 +141,4 @@ int main(){
 
   return 0;
 }
+
