@@ -74,6 +74,7 @@ bluDB * build_DB(){
 //*Second Function
 void search_record(void insert_record)
 {
+  //Studying how to find certain data points
 
 
 }
