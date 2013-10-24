@@ -48,7 +48,7 @@ bluDB * get_DB(){
   while(rc < b->num_record){
     record * rtemp = malloc(sizeof(record));
     size_t ss = fread(rtemp,sizeof(record),1,f);
-    printf("Record %d PGN: %ld\n", rc, rtemp->PGN);
+    printf("ID: %02d | PGN: %ld | data: <0x%08x> | TS: %010ld  \n", rc, rtemp->PGN, rtemp->bin_data, rtemp->TS);
     free(rtemp);
     rc++;
   }
@@ -113,8 +113,8 @@ int main(){
   for(i = 0; i< 100; i++){
    record * r = malloc(sizeof(record));
    r->PGN = i + 300;
-   r->bin_data = 0xAF;
-   r->TS = i*2;
+   r->bin_data = 0x01 << i ;
+   r->TS = i*2 + 9000000;
    r->next = NULL;
    insert_record(r,d);   
   }

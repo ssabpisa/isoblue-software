@@ -9,8 +9,10 @@ include ../buildnum.mk
 
 isoblued isoblue_dummy : LDLIBS += -lbluetooth
 isoblued : ring_buf.o
+storage : storage.o
 
 ring_buf.o : ring_buf.c ring_buf.h
+storage.o : storage.c
 
 install : $(TOOLS:%=install_%)
 
