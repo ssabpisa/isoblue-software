@@ -2,6 +2,8 @@ GCC = gcc
 CFLAGS = -Wall -Wshadow -O3
 VALGRIND = valgrind --leak-check=full --track-origins=yes
 SIMCAN = bash ../tools/resend_can.sh vcan0 ../tools/combine_can2_2 &> /dev/null
+SIMBBB = bash ../tools/resend_can.sh ib_eng ../tools/combine_can2_2 &> /dev/null &
+
 
 filter: filter.o setup.o
 	$(GCC) -g filter.o -o filter
@@ -13,6 +15,9 @@ filter.o: filter.c
 setup.o: setup.c
 	$(GCC) setup.c -c
 
+sim_bbb:
+	$(SIMBBB)
+	candump ib_eng
 sview: 
 	$(GCC) viewsetting.c -o viewsetting
 	./viewsetting isoblue_setting.config
