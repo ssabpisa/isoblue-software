@@ -77,19 +77,19 @@ bluDB * build_DB(){
 }
 
 //*Search Function -Using Linked list
-//Record is node, head is r, work in progress
+//Record *r is node, bluDB * b is int v, work in progress
 void insert_search(record * r, bluDB * b)
 {
-  record * r = b;
+  (record * r) * p = r;
   while (r != NULL)
   {
-    if ((r -> bluDB * b))
+    if ((p -> bluDB * b))
     {
       return p;
     }
-    r = r -> next; 
+    p = p -> next; 
   }
-  return r;
+  return p;
 }
 
 void insert_record(record * r, bluDB * b){
