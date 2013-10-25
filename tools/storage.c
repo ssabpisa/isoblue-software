@@ -128,13 +128,13 @@ void insert_record(record * r, bluDB * b){
 }
 
 //*Joseph's Function-work in progress, delete function
+// Check to determine if r or p is used for the node
 /*
-void delete_record(record * r, blu_DB * b)
+void delete_record(record * r, bluDB * b)
 {
- FILE * pFile;
- char line[21]; //This is to double check about what 
- char *buffer;
- char *ptr;
+  printf("delete %d\n", bluDB * b)
+  record * r =  r
+
 */
 
 }
