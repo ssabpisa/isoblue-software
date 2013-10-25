@@ -129,13 +129,19 @@ void insert_record(record * r, bluDB * b){
 
 //*Joseph's Function-work in progress, delete function
 // Check to determine if r or p is used for the node
-/*
+
 void delete_record(record * r, bluDB * b)
 {
   printf("delete %d\n", bluDB * b)
-  record * r =  r
+  record * r =  bluDB * bl
+  if (r == NULL) /*do nothing as it is an empty list*/
+  {
+    return r;
+  }
 
-*/
+  /*delete the first node*/
+  //if ((r ->))
+
 
 }
 
