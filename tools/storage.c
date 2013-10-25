@@ -6,6 +6,10 @@
 #include <stdio.h>
 
 
+//list_H will be replaced by the data file with PGN
+#ifndef LIST_H
+#define LIST_H
+
 typedef struct record{
   long id; //running record ID for synchronization 
   int PGN;
@@ -25,6 +29,7 @@ typedef struct bluDB{
   record * table;
 }bluDB;
 /* interface for "playback" save type */
+
 
 void insert_record(record * r, bluDB * b);
 bluDB * get_DB();
@@ -71,12 +76,20 @@ bluDB * build_DB(){
   return newdb;
 }
 
-//*Second Function
-void search_record(void insert_record)
+//*Search Function -Using Linked list
+//Record is node, head is r, work in progress
+void insert_search(record * r, bluDB * b)
 {
-  //Studying how to find certain data points
-
-
+  record * r = b;
+  while (r != NULL)
+  {
+    if ((r -> bluDB * b))
+    {
+      return p;
+    }
+    r = r -> next; 
+  }
+  return r;
 }
 
 void insert_record(record * r, bluDB * b){
@@ -97,6 +110,7 @@ void insert_record(record * r, bluDB * b){
     Px = r;
   }
 
+
   b->num_record = b->num_record + 1;
   
   //rewrite header at beginning of file
@@ -115,7 +129,7 @@ void insert_record(record * r, bluDB * b){
 
 //*Joseph's Function-work in progress, delete function
 /*
-void delete_record(int record_id_to_delete)
+void delete_record(record * r, blu_DB * b)
 {
  FILE * pFile;
  char line[21]; //This is to double check about what 
