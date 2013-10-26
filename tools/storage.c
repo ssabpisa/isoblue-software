@@ -150,6 +150,7 @@ void delete_record(record * r, bluDB * b)
 //Not deleting the first node
 
   record * r = r -> next;
+  q = r -> next;
   while ((q != NULL)  &&  ((q -> value) != v))
   {
     //Checking if q is NULL
@@ -163,7 +164,7 @@ void delete_record(record * r, bluDB * b)
     free (q);
   }
 
-return b->table;
+return r;
 
 }
 
