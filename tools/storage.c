@@ -77,19 +77,19 @@ bluDB * build_DB(){
 }
 
 //*Search Function -Using Linked list
-//Record *r is node, bluDB * b is int v, work in progress
+//Record is node, r = head, bluDB * b is int v, work in progress
 void insert_search(record * r, bluDB * b)
 {
-  (record * r) * p = r;
+  record * r = b->table; //head node of the list/database
   while (r != NULL)
   {
-    if ((p -> bluDB * b))
+    if ((r -> bluDB * b))
     {
-      return p;
+      return r;
     }
-    p = p -> next; 
+    r = r -> next; 
   }
-  return p;
+  return r;
 }
 
 void insert_record(record * r, bluDB * b){
@@ -128,12 +128,13 @@ void insert_record(record * r, bluDB * b){
 }
 
 //*Joseph's Function-work in progress, delete function
-// Check to determine if r or p is used for the node
+
 
 void delete_record(record * r, bluDB * b)
 {
   printf("delete %d\n", bluDB * b)
-  record * r =  bluDB * bl
+  r = b->table;
+  record * r =  bluDB * b;
   if (r == NULL) /*do nothing as it is an empty list*/
   {
     return r;
@@ -148,21 +149,21 @@ void delete_record(record * r, bluDB * b)
   }
 //Not deleting the first node
 
-  record * r = p -> next;
+  record * r = r -> next;
   while ((q != NULL)  &&  ((q -> value) != v))
   {
     //Checking if q is NULL
-    p = p -> next;
+    r = r -> next;
     q = q -> next;
   }
 
   if (q  != NULL)
   {
-    p -> next = q -> next;
+    r -> next = q -> next;
     free (q);
   }
 
-return head;
+return b->table;
 
 }
 
