@@ -128,8 +128,6 @@ void insert_record(record * r, bluDB * b){
 }
 
 //*Joseph's Function-work in progress, delete function
-
-
 void delete_record(record * r, bluDB * b)
 {
   printf("delete %d\n", bluDB * b)
