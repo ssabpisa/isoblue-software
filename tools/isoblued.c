@@ -298,7 +298,8 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 			addr.can_addr.isobus.addr, daddr.can_addr.isobus.addr);
     
     int dataToCopy = addr.can_addr.isobus.addr;//Added
-    copy_to_permanent_storage(dataToCopy, FILE *fout);//Added
+    //open the file
+    copy_to_permanent_storage(dataToCopy, fout);//Added
     
 
 	ring_buffer_tail_advance(buf, cp-sp+1);
