@@ -51,6 +51,8 @@
 #include "../socketcan-isobus/isobus.h"
 
 #include "ring_buf.h"
+#include "c_buffer.c" //Added
+FILE *fout; //Added
 
 enum opcode {
 	SET_FILTERS = 'F',
@@ -294,6 +296,10 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 	}
 	cp += sprintf(cp, "%ld.%06ld %02x %02x\n", ts.tv_sec, ts.tv_usec,
 			addr.can_addr.isobus.addr, daddr.can_addr.isobus.addr);
+    
+    int dataToCopy = addr.can_addr.isobus.addr;//Added
+    copy_to_permanent_storage(dataToCopy, FILE *fout);//Added
+    
 
 	ring_buffer_tail_advance(buf, cp-sp+1);
 
@@ -610,6 +616,8 @@ int main(int argc, char *argv[]) {
 	loop_func(n_fds, read_fds, write_fds, buf, s, ns, bt);
 
 	sdp_close(session);
+    
+    FILE *fout = fopen("database.something","a+");//Added
 
 	return EXIT_SUCCESS;
 }
