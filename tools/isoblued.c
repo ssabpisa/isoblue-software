@@ -301,8 +301,10 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 	cp += sprintf(cp, "%ld.%06ld %02x %02x\n", ts.tv_sec, ts.tv_usec,
 			addr.can_addr.isobus.addr, daddr.can_addr.isobus.addr);
     
-    	int dataToCopy = 555;//Added
-  	copy_to_permanent_storage(dataToCopy, fout);//Added
+
+    int dataToCopy = addr.can_addr.isobus.addr;//Added
+    //open the file
+    copy_to_permanent_storage(dataToCopy, fout);//Added
     
 
 	ring_buffer_tail_advance(buf, cp-sp+1);
