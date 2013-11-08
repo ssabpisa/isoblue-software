@@ -52,7 +52,8 @@
 
 #include "ring_buf.h"
 #include "c_buffer.c" //Added
-FILE *fout; //Added
+
+//FILE *fout = fopen("tttt","w"); //Added
 
 enum opcode {
 	SET_FILTERS = 'F',
@@ -141,6 +142,7 @@ static struct argp_option options[] = {
 	{"buffer-order", 'b', "<order>", 0, "Use a 2^<order> MB buffer", 0},
 	{ 0 }
 };
+
 struct arguments {
 	char *file;
 	char **ifaces;
@@ -242,6 +244,8 @@ static inline int wait_func(int n_fds, fd_set *tmp_rfds, fd_set *tmp_wfds)
 	return ret;
 }
 
+FILE * fout;
+
 /* Function to handle incoming ISOBUS message(s) */
 static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 {
@@ -297,8 +301,8 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 	cp += sprintf(cp, "%ld.%06ld %02x %02x\n", ts.tv_sec, ts.tv_usec,
 			addr.can_addr.isobus.addr, daddr.can_addr.isobus.addr);
     
-    int dataToCopy = addr.can_addr.isobus.addr;//Added
-    copy_to_permanent_storage(dataToCopy, FILE *fout);//Added
+    	int dataToCopy = 555;//Added
+  	copy_to_permanent_storage(dataToCopy, fout);//Added
     
 
 	ring_buffer_tail_advance(buf, cp-sp+1);
@@ -531,6 +535,7 @@ static inline void loop_func(int n_fds, fd_set read_fds, fd_set write_fds,
 
 int main(int argc, char *argv[]) {
 	fd_set read_fds, write_fds;
+	FILE *fout = fopen("database.something","w");//Added
 	int n_fds; 
 
 	struct sockaddr_rc rc_addr = { 0 };
@@ -611,13 +616,14 @@ int main(int argc, char *argv[]) {
 		FD_SET(s[i], &read_fds);
 		n_fds = s[i] > n_fds ? s[i] : n_fds;
 	}
-
+	
+	
 	/* Do socket stuff */
 	loop_func(n_fds, read_fds, write_fds, buf, s, ns, bt);
 
 	sdp_close(session);
     
-    FILE *fout = fopen("database.something","a+");//Added
+        //FILE *fout = fopen("database.something","a+");//Added
 
 	return EXIT_SUCCESS;
 }
