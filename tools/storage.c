@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 //list_H will be replaced by the data file with PGN
 #ifndef LIST_H
 #define LIST_H
