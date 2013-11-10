@@ -535,7 +535,7 @@ static inline void loop_func(int n_fds, fd_set read_fds, fd_set write_fds,
 
 int main(int argc, char *argv[]) {
 	fd_set read_fds, write_fds;
-	fout = fopen("database.something","w");//Added
+	fout = fopen("database.txt","w");//Added
 	int n_fds; 
 
 	struct sockaddr_rc rc_addr = { 0 };
@@ -623,7 +623,6 @@ int main(int argc, char *argv[]) {
 
 	sdp_close(session);
     
-        //FILE *fout = fopen("database.something","a+");//Added
 
 	return EXIT_SUCCESS;
 }
