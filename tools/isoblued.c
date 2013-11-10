@@ -53,7 +53,7 @@
 #include "ring_buf.h"
 #include "c_buffer.c" //Added
 
-//FILE *fout = fopen("tttt","w"); //Added
+FILE *fout;
 
 enum opcode {
 	SET_FILTERS = 'F',
@@ -243,8 +243,6 @@ static inline int wait_func(int n_fds, fd_set *tmp_rfds, fd_set *tmp_wfds)
 
 	return ret;
 }
-
-FILE * fout;
 
 /* Function to handle incoming ISOBUS message(s) */
 static inline int read_func(int sock, int iface, struct ring_buffer *buf)
@@ -537,7 +535,7 @@ static inline void loop_func(int n_fds, fd_set read_fds, fd_set write_fds,
 
 int main(int argc, char *argv[]) {
 	fd_set read_fds, write_fds;
-	FILE *fout = fopen("database.something","w");//Added
+	fout = fopen("database.something","w");//Added
 	int n_fds; 
 
 	struct sockaddr_rc rc_addr = { 0 };
