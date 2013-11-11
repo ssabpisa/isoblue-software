@@ -330,9 +330,9 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 	*(cp++) = '\n';
 	//*(cp++) = '\0';
         
-       // int dataToCopy = 
-       // copy_to_permanent_storage(dataToCop, fout);
-
+       
+	 
+    copy_to_permanent_storage(mes, tv, iface, daddr.can_addr.isobus.addr, fout);
 
 	ring_buffer_tail_advance(buf, cp-sp);
 
