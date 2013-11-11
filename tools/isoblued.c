@@ -329,6 +329,10 @@ static inline int read_func(int sock, int iface, struct ring_buffer *buf)
 	/* Print message ending */
 	*(cp++) = '\n';
 	//*(cp++) = '\0';
+        
+       // int dataToCopy = 
+       // copy_to_permanent_storage(dataToCop, fout);
+
 
 	ring_buffer_tail_advance(buf, cp-sp);
 
