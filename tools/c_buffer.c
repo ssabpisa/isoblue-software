@@ -8,7 +8,7 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
 {
 	
-	fprintf(fptr1, "%d %d %d %d %d\n",iface, mes.pgn, tv.tv_sec, tv.tv_usec, addr);
+	fprintf(fptr1, "messages: %d %d %d %d %d\n",iface, mes.pgn, tv.tv_sec, tv.tv_usec, addr);
     fflush (fptr1);
 
 }
