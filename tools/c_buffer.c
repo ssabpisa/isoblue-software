@@ -15,7 +15,7 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 
     for (i = 0; i < mes.dlen; i++)
     {
-       fprintf(fptr1, " %02x ", mes.data[i]);//Array of the data
+       fprintf(fptr1, "%02x", mes.data[i]);//Array of the data
     
     }
 
