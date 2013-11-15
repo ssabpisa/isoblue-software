@@ -9,6 +9,6 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 {
 	
 	fprintf(fptr1, "messages: %d %d %d %d %d\n",iface, mes.pgn, tv.tv_sec, tv.tv_usec, addr);
-    fflush (fptr1);
+    fflush (FILE *fptr1);
 
 }
