@@ -9,8 +9,17 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
 {
-	
-    fprintf(fptr1, "messages and socket: %d %d Time: %d:%d Address:%d \n",iface, mes.pgn, tv.tv_sec, tv.tv_usec, addr);
+	int i;
+
+	fprintf(fptr1, " Socket: %d PGN: %d ", iface, mes.pgn);
+
+    for (i = 0; i < mes.dlen; i++)
+    {
+       fprintf(fptr1, "%d" mes.data[i] )//Array of the data
+    
+    }
+
+    fprintf(fptr1, " Time: %d %d Address:%d \n",iface, mes.pgn, tv.tv_sec, tv.tv_usec, addr);
     fflush (fptr1);
 
 }
