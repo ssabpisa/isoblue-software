@@ -4,7 +4,7 @@
 
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1); //the function to store the messages permanently
-
+//void check();
 
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
@@ -24,3 +24,11 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 
 }
 
+void check(/*TimeStamp*/)
+{
+	char us[6]; //to hold the string for the mircoseconds
+	char ns[16]; //to hold the timestamp (seconds) from database.txt
+	fp = fopen("database.txt",r);
+	fscanf(fptr1,"%d.%0.6d",n,);
+	if (/*TimeStamp*/ == )
+}
