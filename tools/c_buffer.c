@@ -4,10 +4,8 @@
 
 FILE *sync;
 
-
-
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1); //the function to store the messages permanently
-void check(/*Have the android timestamp*/); //may need to be change
+
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
 {
@@ -29,7 +27,9 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 
 
 //Issue, how to run this function once the first function stops
-void check(/*TimeStamp from android*/)
+//Have timestamp (in unix time) from android
+/*
+int main(void)
 {
     char line[1024] = {0,};
     int n2 = 0;
@@ -82,5 +82,5 @@ void check(/*TimeStamp from android*/)
     }
 
    
-   
 }
+*/
