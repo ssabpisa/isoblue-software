@@ -1,3 +1,16 @@
+/*
+*ISOBlue Circular Buffer
+*Creates a database.txt to store incoming data such as pgn, socket, Timestamp and Address
+*
+*Accepts incoming Android device messages to check if its data(through unix timestamp) is up to data
+*Finds the current timestamp from database.txt, compares to the android's timestamp and sends 
+*back a confirmation
+*
+*Author(s): Joseph Chiu <chiu12@purdue.edu>
+
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,7 +56,7 @@ int main(void)
 
     double c_num = 1385144575.788001; 
 
-    int hold;
+    int hold; //Send to android device or change to string as a message
 
 
     sync = fopen("database.txt","r");
@@ -68,13 +81,13 @@ int main(void)
             // printf("%.6f\n", c_num);
             if ( result == c_num)
             {
-                printf("Success\n");
+                //printf("Success\n");
                 hold = 0;
             }
 
             else
             {
-                printf("No Success\n");
+                //printf("No Success\n");
                 hold = 1;
             }
 

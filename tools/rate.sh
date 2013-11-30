@@ -1,4 +1,7 @@
 #!/bin/sh
 #controlling the rate of the can messages
 
-echo "Hello World!"
+
+
+$date
+
