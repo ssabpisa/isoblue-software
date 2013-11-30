@@ -1,13 +1,12 @@
 /*
-*ISOBlue Circular Buffer
-*Creates a database.txt to store incoming data such as pgn, socket, Timestamp and Address
+* ISOBlue Circular Buffer
+* Creates a database.txt to store incoming data such as pgn, socket, Timestamp and Address
 *
-*Accepts incoming Android device messages to check if its data(through unix timestamp) is up to data
-*Finds the current timestamp from database.txt, compares to the android's timestamp and sends 
-*back a confirmation
+* Accepts incoming Android device messages to check if its data(through unix timestamp) is up to data
+* Finds the current timestamp from database.txt, compares to the android's timestamp and sends 
+* back a confirmation
 *
-*Author(s): Joseph Chiu <chiu12@purdue.edu>
-
+* Author(s): Joseph Chiu <chiu12@purdue.edu>
 */
 
 
@@ -54,7 +53,7 @@ int main(void)
     double r_2 = 0;
     double result = 0;
 
-    double c_num = 1385144575.788001; 
+    double c_num = 1385144575.788001; //Testing check
 
     int hold; //Send to android device or change to string as a message
 
@@ -78,7 +77,8 @@ int main(void)
             r_2 = n3 / 1000000.0;
             result = r_1 + r_2;
             // printf("%.6f\n", result);
-            // printf("%.6f\n", c_num);
+            //Replace c_num with the android timestamp
+
             if ( result == c_num)
             {
                 //printf("Success\n");
