@@ -22,6 +22,8 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
     fprintf(fptr1, " Time: %d.%06d Address: %d \n", tv.tv_sec, tv.tv_usec, addr);
     fflush (fptr1);
 
+    exit(0);
+
 
 }
 
