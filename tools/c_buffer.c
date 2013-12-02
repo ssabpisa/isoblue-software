@@ -9,7 +9,6 @@
 * Author(s): Joseph Chiu <chiu12@purdue.edu>   
 */
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,9 +36,6 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 }
 
 
-//Issue, how to run this function once the copy function stops or to go first when asked by android
-//Have timestamp (in unix time) from android
-
 int check()
 {
     char line[1024] = {0,};
@@ -50,8 +46,8 @@ int check()
     double r_2 = 0;
     double result = 0;
 
-    int hold; //Send to android device or change to string as a message
-    double c_num = 1385144575.788001; //Testing check
+    int hold; //Send to android device as confirmation or as a string message
+    double c_num = 1385144575.788001; //Testing timestamp
 
 
     sync = fopen("database.txt","r");
@@ -94,26 +90,32 @@ int check()
             //printf("%d.%d\n", n2, n3);
         }
     }
+    return(hold);
 
     //printf("%d\n", hold);
 }
 
 int main(int argc, char *argv[]) 
 {
+    int save;
+    //Figure out the arguements
+
     if(argc != 2) 
     {
         return -1;
+        //Checks if the two arguments in argv are real (The check and copy function)
     }
 
-    if(0 == strcmp(argv[1]), "copy_to_permanent_storage")
+    if(0 == strcmp(argv[1], "copy_to_permanent_storage"))
     {
         copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1);
     }
 
-    else if (0 == strcmp(argv[1]), "check")
+    else if (0 == strcmp(argv[1] "check"))
     {
-        check();
-        printf("checking for timestamp");
+        save = check();
+        printf("checking for timestamp\n");
+        printf("hold: %d", save);
     }
     else 
     {
