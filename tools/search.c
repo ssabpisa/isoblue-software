@@ -2,14 +2,14 @@
 *   Second part of the buffer, Activiates when android asks for confirmation of timestamp
 *
 *
-* Author: Joseph Chiu
+* Author(s): Joseph Chiu
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void check()
+int check()
 {
     char line[1024] = {0,};
     int n2 = 0;
@@ -63,12 +63,6 @@ void check()
             //printf("%d.%d\n", n2, n3);
         }
     }
-    //return(hold);
+    return(hold);
     //printf("%d\n", hold);
-}
-
-int main(int argc, char *argv[])
-{
-    check();
-    return(0);
 }
