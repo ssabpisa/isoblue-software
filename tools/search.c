@@ -63,11 +63,12 @@ void check()
             //printf("%d.%d\n", n2, n3);
         }
     }
-    return(hold);
+    //return(hold);
     //printf("%d\n", hold);
 }
 
 int main(int argc, char *argv[])
 {
     check();
+    return(0);
 }
