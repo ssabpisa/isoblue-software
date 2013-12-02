@@ -36,64 +36,7 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
 }
 
 
-int check()
-{
-    char line[1024] = {0,};
-    int n2 = 0;
-    int n3 = 0;
-    
-    double r_1 = 0;
-    double r_2 = 0;
-    double result = 0;
 
-    int hold; //Send to android device as confirmation or as a string message
-    double c_num = 1385144575.788001; //Testing timestamp
-
-
-    sync = fopen("database.txt","r");
-    
-    if(sync != NULL) 
-    {
-        while( fgets(line, 1024, sync) != NULL)
-        {
-            //Nothing
-        }
-
-        fclose(sync);
-
-        if (sscanf(line, "%*[^T]Time: %d.%d", &n2, &n3))
-        {
-            //to convert the n2 and n3 into the timestamp
-            r_1 = n2;
-            r_2 = n3 / 1000000.0;
-            result = r_1 + r_2;
-            // printf("%.6f\n", result);
-            //Replace c_num with the android timestamp
-
-            if (result == c_num)
-            {
-                hold = 0;
-                //printf("Success\n");
-                //printf("hold: %d\n", hold);
-                //printf("%.6f\n", result); 
-            }
-
-            else
-            {
-                hold = 1;
-                //printf("No Success\n");
-                //printf("hold: %d\n", hold);
-                //printf("%.6f\n", result);
-            }
-
-            //The result from txt file
-            //printf("%d.%d\n", n2, n3);
-        }
-    }
-    return(hold);
-
-    //printf("%d\n", hold);
-}
 
 int main(int argc, char *argv[]) 
 {
@@ -114,7 +57,7 @@ int main(int argc, char *argv[])
     else if (0 == strcmp(argv[1] "check"))
     {
         save = check();
-        printf("checking for timestamp\n");
+        //printf("checking for timestamp\n");
         printf("hold: %d", save);
     }
     else 
