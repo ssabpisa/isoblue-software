@@ -501,8 +501,10 @@ static inline int command_func(int rc, struct ring_buffer *buf, int *s)
 
 	case GET_TS:
 	{
+		int s;
 
-		check();
+		s = check(); //hold
+		//Do the same in java
 
 		break;
 	}
