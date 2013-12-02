@@ -52,12 +52,14 @@
 
 #include "ring_buf.h"
 #include "c_buffer.c" //Added
+#include "search.c"
 
 FILE *fout;
 
 enum opcode {
 	SET_FILTERS = 'F',
 	SEND_MESG = 'W',
+	GET_TS = 'G',
 };
 
 /* Registers isoblued with the SDP server */
@@ -496,6 +498,16 @@ static inline int command_func(int rc, struct ring_buffer *buf, int *s)
 		
 		break;
 	}
+
+	case GET_TS:
+	{
+
+		check();
+
+		break;
+	}
+
+
 	}
 	
 	memmove(buffer, buffer+curs, tail-curs);

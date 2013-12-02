@@ -16,7 +16,6 @@
 FILE *sync;
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1); //the function to store the messages permanently
-int check();
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
 {
@@ -34,38 +33,3 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
     fflush (fptr1);
 
 }
-
-
-
-
-int main(int argc, char *argv[]) 
-{
-    int save;
-    //Figure out the arguements
-
-    if(argc != 2) 
-    {
-        return -1;
-        //Checks if the two arguments in argv are real (The check and copy function)
-    }
-
-    if(0 == strcmp(argv[1], "copy_to_permanent_storage"))
-    {
-        copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1);
-    }
-
-    else if (0 == strcmp(argv[1] "check"))
-    {
-        save = check();
-        //printf("checking for timestamp\n");
-        printf("hold: %d", save);
-    }
-    else 
-    {
-         return -1; 
-    }
-
-
-    return(0);
-}
-
