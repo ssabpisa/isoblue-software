@@ -6,7 +6,7 @@
 * Finds the current timestamp from database.txt, compares to the android's timestamp and sends 
 * back a confirmation
 *
-* Author(s): Joseph Chiu <chiu12@purdue.edu>
+* Author(s): Joseph Chiu <chiu12@purdue.edu>   
 */
 
 
@@ -17,7 +17,7 @@
 FILE *sync;
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1); //the function to store the messages permanently
-
+int check();
 
 void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1)
 {
@@ -34,16 +34,13 @@ void copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int if
     fprintf(fptr1, " Time: %d.%06d Address: %d \n", tv.tv_sec, tv.tv_usec, addr);
     fflush (fptr1);
 
-    exit(0);
-
-
 }
 
 
-//Issue, how to run this function once the first function stops
+//Issue, how to run this function once the copy function stops or to go first when asked by android
 //Have timestamp (in unix time) from android
-/*
-int main(void)
+
+int check()
 {
     char line[1024] = {0,};
     int n2 = 0;
@@ -53,13 +50,11 @@ int main(void)
     double r_2 = 0;
     double result = 0;
 
-    double c_num = 1385144575.788001; //Testing check
-
     int hold; //Send to android device or change to string as a message
+    double c_num = 1385144575.788001; //Testing check
 
 
     sync = fopen("database.txt","r");
-    
     
     if(sync != NULL) 
     {
@@ -79,16 +74,20 @@ int main(void)
             // printf("%.6f\n", result);
             //Replace c_num with the android timestamp
 
-            if ( result == c_num)
+            if (result == c_num)
             {
-                //printf("Success\n");
                 hold = 0;
+                //printf("Success\n");
+                //printf("hold: %d\n", hold);
+                //printf("%.6f\n", result); 
             }
 
             else
             {
-                //printf("No Success\n");
                 hold = 1;
+                //printf("No Success\n");
+                //printf("hold: %d\n", hold);
+                //printf("%.6f\n", result);
             }
 
             //The result from txt file
@@ -96,6 +95,32 @@ int main(void)
         }
     }
 
-   
+    //printf("%d\n", hold);
 }
-*/
+
+int main(int argc, char *argv[]) 
+{
+    if(argc != 2) 
+    {
+        return -1;
+    }
+
+    if(0 == strcmp(argv[1]), "copy_to_permanent_storage")
+    {
+        copy_to_permanent_storage(struct isobus_mesg mes, struct timeval tv, int iface, uint8_t addr, FILE *fptr1);
+    }
+
+    else if (0 == strcmp(argv[1]), "check")
+    {
+        check();
+        printf("checking for timestamp");
+    }
+    else 
+    {
+         return -1; 
+    }
+
+
+    return(0);
+}
+
