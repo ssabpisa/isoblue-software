@@ -501,9 +501,10 @@ static inline int command_func(int rc, struct ring_buffer *buf, int *s)
 
 	case GET_TS:
 	{
-		int s;
+		int s; //get timestamp from BBB
+		//GET Timestamp from android
 
-		s = check(); //hold
+		s = check(/*Timestamp from Android*/); //hold value
 		//Do the same in java
 
 		break;

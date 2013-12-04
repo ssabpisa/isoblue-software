@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int check();
+
 int check()
 {
     char line[1024] = {0,};
