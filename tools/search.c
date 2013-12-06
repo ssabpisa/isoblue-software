@@ -1,5 +1,5 @@
 /*
-*   Second part of the buffer, Activiates when android asks for confirmation of timestamp
+*   Second part of the buffer, Activiates when android asks for the list of messages and data based on timestamp
 *
 *
 * Author(s): Joseph Chiu
