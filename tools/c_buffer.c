@@ -2,9 +2,6 @@
 * ISOBlue Circular Buffer
 * Creates a database.txt to store incoming data such as pgn, socket, Timestamp and Address
 *
-* Accepts incoming Android device messages to check if its data(through unix timestamp) is up to data
-* Finds the current timestamp from database.txt, compares to the android's timestamp and sends 
-* back a confirmation
 *
 * Author(s): Joseph Chiu <chiu12@purdue.edu>   
 */
